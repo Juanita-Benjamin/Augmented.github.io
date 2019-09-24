@@ -5,9 +5,9 @@
 <meta name = "language" content="English">
 <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
 <script>
-  Aframe.registerComponent('log',{
+  AFRAME.registerComponent('log',{
     schema: {type: 'string'},
-    init: function(){
+    init: function() {
       var stringToLog = this.data;
       console.log(stringToLog);
     }
