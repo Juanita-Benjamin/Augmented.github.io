@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <head>
-<title>First Webpage</title>
-<meta charset="UTF-8">
-<meta name = "language" content="English">
-<script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
-<script>
+  <title>First Webpage</title>
+  <meta charset="UTF-8">
+  <meta name = "language" content="English">
+  <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+  <script>
   AFRAME.registerComponent('log',{
+
     schema: {type: 'string'},
     init: function() {
       var stringToLog = this.data;
       console.log(stringToLog);
     }
-  });
-</script>
+    });
+  </script>
 </head>
 <body>
   <a-scene log="Hello, Scene!">
