@@ -13,8 +13,12 @@
         console.log('hello world');
       }
     });
-    var sceneEl =document.querySelector('a-scene');
-    console.log(sceneEl.querySelector('#redBox'));
+    AFRAME.registerComponent('click',{
+      init: function () {
+        var sceneEl = document.querySelector('a-scene');
+        console.log(sceneEl.querySelector('#redBox'));
+      }
+    });
     </script>
     <a-scene>
       <a-entity hello-world></a-entity>
@@ -24,7 +28,6 @@
       <a-sphere class= "cliclable" position= "0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
       <a-box id="redBox" class ="clickable" color="red"></a-box>
       <a-entity light="type: ambient"></a-entity>
-      <a-box color ="green"></a-box>
       <a-sky color="skyblue"></a-sky>
       <a-cyliner id ="whitecyl" color="white" class="clickable"></a-cyliner>
       <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
