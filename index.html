@@ -7,22 +7,12 @@
   </head>
   <body>
     <script>
-    AFRAME.registerComponent('hello world', {
-      init: function () {
-        console.log('hello world');
-      }
-    });
-    AFRAME.registerComponent('click',{
-      init: function () {
-        var sceneEl = document.querySelector('a-scene');
-        console.log(sceneEl.querySelector('#redBox'));
-      }
-    });
+   
     </script>
     <a-scene>
       <a-cylinder id="ground" src="https://cdn.aframe.io/a-painter/images/floor.jpg" radius="32" height ="0.1"></a-cylinder>
       <a-entity hello-world></a-entity>
-      <a-sphere class= "cliclable" position= "0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+      <a-sphere class= "clicklable" position= "0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
       <a-box id="redBox" class ="clickable" color="red"></a-box>
       <a-entity light="type: ambient"></a-entity>
       <a-sky color="skyblue"></a-sky>
