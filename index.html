@@ -1,23 +1,34 @@
 <!DOCTYPE html>
 <head>
-   <title>First Webpage</title>
-    <meta charset="UTF-8">
-    <meta name = "language" content="English">
+    <meta charset="UTF-8" content="Basic environment">
+    <title>Vr-holder</title>
     <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
-  </head>
-  <body>
-    <script>
-   
-    </script>
-    <a-scene>
-      <a-cylinder id="ground" src="https://cdn.aframe.io/a-painter/images/floor.jpg" radius="32" height ="0.1"></a-cylinder>
-      <a-entity hello-world></a-entity>
-      <a-sphere class= "clicklable" position= "0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-      <a-box id="redBox" class ="clickable" color="red"></a-box>
-      <a-entity light="type: ambient"></a-entity>
-      <a-sky color="skyblue"></a-sky>
-    
-    </a-scene>
-  </body>
-  </html>
-    
+    <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+</head>
+<body>
+<a-scene environment=" preset: japan">
+    <a-assests>
+        <img id="boxTexture" src="https://i.imgur.com/mYmmbrp.jpg">
+        <audio src="https://cdn.aframe.io/basic-guide/audio/backgroundnoise.wav" autoplay
+               preload></audio>
+    </a-assests>
+    <a-light type="ambient"></a-light>
+    <a-box src="https://i.imgur.com/mYmmbrp.jpg"
+           position="0 2 -5"
+           rotation="0 45 45"
+           scale="2 2 2"
+           animation__position="property: object3D.position.y; to: 2.2; dir: alternate; dur: 2000; delay: 0; loop: true"
+           animation__mouseenter="property: scale; to: 2.3 2.3 2.3; dur: 300; startEvents: mouseenter"
+           animation__mouseleave="property: scale; to: 2 2 2; dur: 300; startEvents: mouseleave"></a-box>
+    <a-entity>
+        <a-animation attribute="scale" begin="5000" to="2 2 2"></a-animation>
+    </a-entity>
+
+    <a-entity text="value: Greetings, Humans!; color: black; width: 5; anchor: align" position="-0.9 0.2 -3" scale="1.5 1.5 1.5"></a-entity>
+    <a-camera>
+        <a-cursor color="#FAFAFA"></a-cursor>
+    </a-camera>
+
+</a-scene>
+</body>
+</html>
