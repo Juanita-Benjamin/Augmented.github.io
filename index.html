@@ -5,52 +5,64 @@
   <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
   <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
   <script src="https://rawgit.com/ngokevin/kframe/csstricks/scenes/aincraft/components/random-color.js"></script>
-
+  <script src="https://rawgit.com/ngokevin/kframe/csstricks/scenes/aincraft/components/snap.js"></script>
+  <script src="https://unpkg.com/aframe-event-set-component@5/dist/aframe-event-set-component.min.js"></script>
+  <script src="https://unpkg.com/aframe-layout-component@5.3.0/dist/aframe-layout-component.min.js"></script>
+  <script src="https://unpkg.com/aframe-template-component@3.2.1/dist/aframe-template-component.min.js"></script>
+  <script src="https://unpkg.com/aframe-proxy-event-component@2.1.0/dist/aframe-proxy-event-component.min.js"></script>
   <script>
+
 
   </script>
 </head>
 <body>
-<a-scene>
-  <a-assests>
-    <img id="sunny" src="sunny.jpg">
-    <img id="galaxy" src="galaxy.jpg">
-    <img id="water" src="water.jpg">
-    <img id="NEON-Background" src="NEON-Background.jpg">
-    <audio src="Truth " autoplay
-           preload></audio>
-
-  </a-assests>
-  <a-light type="ambient"></a-light>
-  <a-box src="#sunny"
+  <a-scene environment=" preset: egypt">
+    <a-assests>
+      <img id="boxTexture" src="galaxy.jpg">
+      <img id="Purple" src="Purple.jpg">
+      <audio src="https://cdn.aframe.io/basic-guide/audio/backgroundnoise.wav" autoplay
+             preload></audio>
+      <a-mixin id="voxel"
+               geometry="primitive: box; height: 0.5; width: 0.5; depth: 0.5"
+               material="shader: standard"
+               random-color
+               snap="offset: 0.25 0.25 0.25; snap: 0.5 0.5 0.5"></a-mixin>
+    </a-assests>
+    <a-light type="ambient"></a-light>
+    <a-box src="#boxTexture"
            position="0 2 -5"
            rotation="0 45 45"
            scale="2 2 2"
            animation__position="property: object3D.position.y; to: 2.2; dir: alternate; dur: 2000; delay: 0; loop: true"
            animation__mouseenter="property: scale; to: 2.3 2.3 2.3; dur: 300; startEvents: mouseenter"
            animation__mouseleave="property: scale; to: 2 2 2; dur: 300; startEvents: mouseleave"></a-box>
-  <a-entity>
-    <a-animation attribute="scale" begin="5000" to="2 2 2"></a-animation>
-  </a-entity>
-  <a-sky src="#NEON-Background" rotation="0 -130 0"></a-sky>
+    <a-entity>
+      <a-animation attribute="scale" begin="5000" to="2 2 2"></a-animation>
+    </a-entity>
+    <a-entity geometry="primitive: box; depth: 0.5 height: 0.5; width: 0.5" material="shader: standard" position="4 0.5 -2"
+              random-color
+              animation="property: object3D.position.y; to: 2.2; dir: alternate; dur: 2000; delay: 0; loop: true"> //not-working
+    </a-entity>
+    <a-entity text="value: Greetings, Humans!; color: black; width: 5; anchor: align" position="-2 4.5 -4" scale="1.5 1.5 1.5"></a-entity>
+    <a-camera>
+      <a-cursor color="#FAFAFA"></a-cursor>
+    </a-camera>
+    <a-entity mixin="voxel" position="-1 5 -4"></a-entity>
+    <a-entity mixin="voxel" position="-15 2 -2" animation="property: rotation; to:0 360 0; repeat: indefinite"></animation>
+    </a-entity>
+    <a-entity mixin="voxel" position="-10 1 -2"
+              animation="property: object3D.position.y; to: 2.2; dir: alternate; dur: 2000; delay: 1500; loop: true">
 
-  <a-entity text="value: Greetings, Humans!; color: black; width: 5; anchor: align" position="-0.9 0.2 -3" scale="1.5 1.5 1.5"></a-entity>
-  <a-camera>
-    <a-cursor color="#FAFAFA"></a-cursor>
-  </a-camera>
-  <a-entity cursor position="0 0 -5"></a-entity>
-  <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
-
-  <a-entity
-    geometry="primitive: box"
-    material="color: orange"
-    position="4 2 -5"
-    scale="2 3 2"
-    animation__mouseenter="property: components.material.material.color; type: color; to: blue; startEvents: mouseenter; dur: 500";
-    animation__mouseleave="property: components.material.material.color; type: color; to: red; startEvents: mouseleave; dur: 500";></a-entity>
-
-
-
-</a-scene>
+    </a-entity>
+    <a-entity mixin="voxel" position="1 0 -2"></a-entity>
+    <a-entity id="blushing-cube" geometry="primitive: box" position
+              animation="property: rotation; from: white; to: red; dur: 1000">
+    </a-entity>
+    <a-entity
+      text="value: <<<Drag left; color: black; width: 4; anchor: align"
+      position="-3 1 -4"
+      scale="1.5 1.5 1.5"></a-entity>
+    <a-cone src="#Purple"></a-cone>
+  </a-scene>
 </body>
 </html>
