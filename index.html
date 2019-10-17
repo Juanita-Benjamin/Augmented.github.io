@@ -18,17 +18,17 @@
 </head>
 <body>
   <a-scene embedded arjs>
-    <a-assests>
+    <a-assets>
+      <a-asset-item id="tree" src="/path/to/tree.gltf"></a-asset-item>
       <img id="boxTexture" src="galaxy.jpg">
       <img id="Purple" src="Purple.jpg">
-      <audio src="https://cdn.aframe.io/basic-guide/audio/backgroundnoise.wav" autoplay
-             preload></audio>
+      
       <a-mixin id="voxel"
                geometry="primitive: box; height: 0.5; width: 0.5; depth: 0.5"
                material="shader: standard"
                random-color
                snap="offset: 0.25 0.25 0.25; snap: 0.5 0.5 0.5"></a-mixin>
-    </a-assests>
+    </a-assets>
     <a-light type="ambient"></a-light>
     <a-box src="#boxTexture"
            position="0 2 -5"
@@ -64,6 +64,7 @@
       position="-3 1 -4"
       scale="1.5 1.5 1.5"></a-entity>
     <a-marker-camera preset='hiro'></a-marker-camera>
+    <a-entity gltf-model="##tree"></a-entity>
   </a-scene>
 </body>
 </html>
