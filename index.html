@@ -10,13 +10,14 @@
   <script src="https://unpkg.com/aframe-layout-component@5.3.0/dist/aframe-layout-component.min.js"></script>
   <script src="https://unpkg.com/aframe-template-component@3.2.1/dist/aframe-template-component.min.js"></script>
   <script src="https://unpkg.com/aframe-proxy-event-component@2.1.0/dist/aframe-proxy-event-component.min.js"></script>
+  <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
   <script>
 
 
   </script>
 </head>
 <body>
-  <a-scene environment=" preset: egypt">
+  <a-scene environment=" preset: egypt" embedded arjs>
     <a-assests>
       <img id="boxTexture" src="galaxy.jpg">
       <img id="Purple" src="Purple.jpg">
@@ -41,7 +42,7 @@
     </a-entity>
     <a-entity geometry="primitive: box; depth: 0.5 height: 0.5; width: 0.5" material="shader: standard" position="4 0.5 -2"
               random-color
-              animation="property: object3D.position.y; to: 2.2; dir: alternate; dur: 2000; delay: 0; loop: true"> //not-working
+              animation="property: object3D.position.y; to: 2.2; dir: alternate; dur: 2000; delay: 0; loop: true">
     </a-entity>
     <a-entity text="value: Greetings, Humans!; color: black; width: 5; anchor: align" position="-2 4.5 -4" scale="1.5 1.5 1.5"></a-entity>
     <a-camera>
@@ -62,7 +63,7 @@
       text="value: <<<Drag left; color: black; width: 4; anchor: align"
       position="-3 1 -4"
       scale="1.5 1.5 1.5"></a-entity>
-    <a-cone src="#Purple"></a-cone>
+    <a-marker-camera preset='hiro'></a-marker-camera>
   </a-scene>
 </body>
 </html>
