@@ -9,12 +9,12 @@ https://github.com/jeromeettienne/ar.js-->
 	<a-scene embedded arjs='sourceType: webcam;'>
 		<a-assets>
 			<img id="boxTexture" src="galaxy.jpg"></a-assets>
-		 <a-box src="#boxTexture"
+		<a-marker-camera preset='hiro'
+				 <a-box src="#boxTexture"
 			position="0 2 -5"
 		        rotation="0 45 45"
 			scale="2 2 2"
-                       animation="property: object3D.position.y; to: 2.2; dir: alternateReverse; dur: 2000; delay: 0; loop: true"></a-box>
-		<a-marker-camera preset='hiro'></a-marker-camera>
+                       animation="property: object3D.position.y; to: 2.2; dir: alternateReverse; dur: 2000; delay: 0; loop: true"></a-box>></a-marker-camera>
 	</a-scene>
 </body>
 </html>
