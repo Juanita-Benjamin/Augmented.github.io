@@ -1,18 +1,32 @@
 <!-- Augemented Reality on the web in 10 lines of html!
 https://github.com/jeromeettienne/ar.js-->
 <!DOCTYPE html>
-<script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
-<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.0/aframe/build/aframe-ar.js"></script>
-<script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
-<script>THREEx.ArToolkitContext.baseURL = "https://rawgit.com/jeromeetienne/ar.js/master/three.js/"</script>
+<head>
+  <script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script>
+  <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.0/aframe/build/aframe-ar.js"></script>
+  <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
+  <script>THREEx.ArToolkitContext.baseURL = "https://rawgit.com/jeromeetienne/ar.js/master/three.js/"</script>
+</head>
 <body style='margin : 0px; overflow: hidden;'>
-	<a-scene embedded arjs='sourceType: webcam;'>
-		<a-marker-camera preset="hiro"> 
-			<a-sphere position=" 0 0.5 0" radius="0.75" material="color; green">
-		</a-marker-camera>
-		<a-marker-camera preset="kanji">
-			<a-box position="0 0.5 0" color="red">
-		</a-marker-camera>
-	</a-scene>
+<a-scene embedded artoolkit='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+  <!-- handle marker with your own pattern -->
+  <a-marker preset="kanji">
+    <a-box position='0 0.5 0' material='color: red;'></a-box>
+  </a-marker>
+
+  <!-- handle marker with hiro preset -->
+  <a-marker preset='hiro'>
+    <a-sphere position='0 0.5 0' radius="0.25" material='color: green;'></a-sphere>
+  </a-marker>
+
+  <!-- handle barcode marker -->
+  <a-marker type='barcode' value='5'>
+    <a-box position='0 0.5 0' material='color: blue;'></a-box>
+  </a-marker>
+
+  <!-- add a simple camera -->
+  <a-entity camera></a-entity>
+</a-scene>
 </body>
+
 </html>
