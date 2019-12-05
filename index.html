@@ -6,14 +6,196 @@
   <script src=" aframe-extras.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
   <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
+  <script src="js/models.js"></script>
+  <script src="js/userState.js"></script>
+  <script src="js/interaction.js"></script>
+  <script>
+    function UserState() {
+      this.tools=[];
+    }
+    UserState.prototype.addTOOL = function(tool) {
+      this.tools.push(tool);
+    }
+    UserState.prototype.hasBuilderTool = function(builder) {
+      return builder.tool && this.tools.includes(builder.tool.name);
+    }
+    var userState = new UserState();
 
+    AFRAME.registerComponent('accept-clicks',{
+      init: function () {
+        this.el.addAlias('touchend', handleClickEvent);
+        this.el.addEventListener('click',handleClickEvent);
+      },
+      tick: function () {
+        hideSpeechBubbleIfNoMarker();
+      }
+    });
+    function hideSpeechBubbleIfNoMarker() {
+       var speechBubble = document.querySelector(".speech-bubble");
+       if (speechBubble.style.display === 'none' || !speechBubble.style.display) return;
+
+       var shouldHide = true;
+       builders.forEach(function (builder) {
+         var builderMarker = document.querySelector("#" + builder.name+ "-marker");
+         if (builderMarker && builderMarker.object3D.visible) shouldHide = false;
+       });
+
+       tools.forEach(function (tool) {
+         var toolMarker = document.querySelector("#" + tool.name + "-marker");
+         if (toolMarker && toolMarker.object3D.visible) shouldHide = false;
+       });
+
+       if (shouldHide) speechBubble.style.display = 'none';
+    };
+
+    function handleClickEvent() {
+      builders.forEach(function (builder) {
+        var builderMarker = document.querySelector("#"+tool.name + "-marker");
+        if (builderMarker && builderMarker.object3D.visible) {
+          if (searchForBuilderTool(builder)) {
+            toggleSpeechBubble(builder.successDialogue);
+          } else {
+            toggleSpeechBubble(builder.dialogue);
+          }
+        }
+      });
+
+      tools.forEach(function (tool) {
+        var toolMaker = document.querySelector("#" + tool.name + "-marker");
+        if (toolMaker && toolMaker.object3D.visible) {
+          toggleSpeechBubble(tool.dialogue);
+          if (!userState.hasBuilderTool(tool)) userState.addTool(tool);
+        }
+      });
+    }
+    function toggleSpeechBubble(dialogue) {
+      var speechBubble = document.querySelector(".speech-bubble");
+          if (speechBubble.style.display === 'none'|| !speechBubble.style.display){
+            speechBubble.innerHTML = dialogue;
+            speechBubble.style.display = 'block';
+          } else {
+            speechBubble.style.display = none;
+          }
+    };
+
+    function searchForBuilderTool(builder) {
+      return userState.tools.some(function (tool) {
+        return tool.name === builder.tool.name;
+      });
+    };
+
+    var builders =[],
+      tool = [];
+
+    function ARModel(name, dialogue) {
+      this.name = name;
+      this.dialogue = dialogue;
+    }
+
+    ARModel.prototype.speak = function () {
+      return this.dialogue;
+    }
+
+    function Builder(name, dialogue, tool, successDialogue) {
+      ARModel.call(this, name, dialogue);
+      this.tool = tool;
+      this.successDialogue = successDialogue;
+    }
+
+    Builder.prototype = Object.create(ARModel.prototype);
+
+    function Tool(name, dialogue) {
+      ARModel.call(this, name, dialogue);
+    }
+
+    Tool.prototype = Object.create(ARModel.prototype);
+
+    function initiateModels() {
+      var buildersArray = [
+        {
+          name: 'Rampaging T-Rex',
+          dialogue: 'Hello! My name is Tyrannosaurus Rex. I am from the late Cretaceous period.' +
+            'I am one of the largest land predator, and measured 43 feet long, and I weighed as' +
+            '7.5 tons. I am a carnivore, I eat other animals',
+          tool: new Tool('Rampaging T-Rex'),
+          successDialogue: 'You have read me!'
+        },
+        {
+          name: 'Juggling Octopus',
+          dialogue: 'Hi, I am a juggling octopus. Not many octopus juggle. I am an ocean' +
+            'creature. I have three hearts, and blue bood; eight arms and a bulbous head.' +
+            'I squirt ink to deter predators; I am boneless, and I can fit into tight spaces.' +
+            'I am very intelligent',
+          tool: new Tool('Juggling Octopus'),
+          successDialogue: 'Yay!, no you know about me'
+        },
+        {
+          name: 'Hovering drone',
+          dialogue: 'Yo, I am drone. I can be used in many areas, such as the army (for covert missions) or' +
+            'just for fun.',
+          tool: new Tool('Hovering drone'),
+          successDialogue: 'Move along'
+        }
+      ];
+      buildersArray.forEach(function (builder) {
+        builders.push(new Builder(builder.name, builder.dialogue, builder.tool, builder.successDialogue));
+        if (builder.tool) tools.push(builder.tool);
+
+      });
+
+      console.log('builders', builders);
+      console.log('tools', tools)
+    }
+    initiateModels();
+
+  </script>
+  <style>
+    .speech-bubble {
+      position: absolute;
+      width: 80%;
+      margin: 0 auto;
+      bottom: 50px;
+      right: 10px;
+      left: 10px;
+      min-height: 20px;
+      background: #5A83BC;
+      color: #0f0f0f;
+      font-size: 28px;
+      border-radius: .4em;
+      padding: 20px;
+      display: none;
+    }
+
+    .speech-bubble:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border: 50px solid transparent;
+      border-bottom-color: #5A83BC;
+      border-bottom: 0;
+      border-left: 0;
+      margin-left: -50px;
+      margin-bottom: -50px;
+    }
+
+    #arjsDebugUIContainer {
+      display: none;
+    }
+    .a-enter-vr {
+      display: none;
+    }
+
+  </style>
 
 
 </head>
 <body style='margin : 0px; overflow: hidden;'>
 
 
-   <a-scene embedded arjs="sourceType: webcam;debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+   <a-scene embedded arjs="sourceType: webcam;debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;" cursor="rayOrigin: mouse" accepts-clicks>
     <a-assets>
       <a-asset-item id="Rampaging T-Rex" src="Rampaging T-Rex.glb"></a-asset-item>
       <a-asset-item id="Bee" src="Bee.glb"></a-asset-item>
@@ -29,11 +211,11 @@
        <a-gltf-model src="#Bee" scale="0.1 0.1 0.1" animation-mixer></a-gltf-model>
      </a-marker>
 
-     <a-marker type='barcode' value='5' size="80">
+     <a-marker id="Juggling octopus-marker" type='barcode' value='5' size="80">
        <a-gltf-model src="#Juggling octopus" scale="0.4 0.4 0.4" animation-mixer></a-gltf-model>
     </a-marker>
 
-     <a-marker type="barcode" value="6">
+     <a-marker id="Hovering drone-marker"type="barcode" value="6">
        <a-gltf-model src="#Hovering drone" scale="0.1 0.1 0.1" animation-mixer></a-gltf-model>
      </a-marker>
 
