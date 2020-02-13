@@ -12,12 +12,8 @@
 
    <a-scene embedded arjs="sourceType: webcam;debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
     <a-assets>
-      <!--a-asset-item id="Rampaging T-Rex" src="Rampaging T-Rex.glb"></a-asset-item-->
+     
       <a-asset-item id="Bee" src="Bee.glb"></a-asset-item>
-      <a-asset-item id="Juggling octopus" src="Juggling octopus.glb"></a-asset-item>
-      <a-asset-item id="Hovering drone" src="Hovering drone.glb"></a-asset-item>
-      <a-asset-item id="Torus" src="Torus.glb"></a-asset-item>
-      <a-asset-item id="Walking astronaut" src="Walking astronaut.glb"></a-asset-item>
     </a-assets>
      <!--a-marker id ='Rampaging T-Rex'preset="hiro">
        <a-gltf-model src="#Rampaging T-Rex" scale="0.2 0.2 0.2" position="0.1 0.1 0.1"animation-mixer></a-gltf-model>
@@ -27,27 +23,7 @@
        <a-gltf-model src="#Bee" scale="0.1 0.1 0.1" animation-mixer></a-gltf-model>
      </a-marker>
 
-     <a-marker type='barcode' value='5' size="80">
-       <a-gltf-model src="#Juggling octopus" scale="0.4 0.4 0.4" animation-mixer></a-gltf-model>
-    </a-marker>
-
-     <a-marker type="barcode" value="10">
-       <a-gltf-model src="#Hovering drone" scale="0.1 0.1 0.1" animation-mixer></a-gltf-model>
-     </a-marker>
-
-     <a-marker type="barcode" value="9">
-       <a-gltf-model src="#Torus" scale="0.1 0.1 0.1"
-                     animation="property: rotation; to:0 360 0; loop:true; easing:linear; dur:2000"></a-gltf-model>
-     </a-marker>
-
-     <a-marker  type="barcode" value="3">
-       <a-gltf-model src="#Walking astronaut" scale="0.5 0.5 0.5" animation-mixer></a-gltf-model>
-     </a-marker>
-
-
-     <!--a-marker id="pleasant_waste-marker" type="pattern" url="builder-markers/pattern-galaxy.patt">
-       <a-entity id="pleasant_waste" obj-model="obj: #pleasant_waste" material="color: green" rotation="0 180 0" position="0 0 0.5" scale="0.01 0.01 0.01"></a-entity>
-     </a-marker-->
+    
    <a-entity camera></a-entity>
    </a-scene>
 
